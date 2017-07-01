@@ -19,7 +19,7 @@
 ++  poke-urbit
   |=  to/@p
   ^-  {(list move) _+>.$}
-  [[[ost.hid %poke /sending [our.hid dap.hid] %noun [%state ~]] ~] +>.$]
+  [[[ost.hid %poke /sending [to dap.hid] %noun [%state ~]] ~] +>.$]
 ::
 ++  coup
   |=  {wir/wire ack/(unit tang)}
@@ -28,8 +28,11 @@
   [~ +>.$]
 ::
 ++  poke-noun
-  |=  a/action
+  |=  b/*
   ^-  {(list move) _+>.$}
+  ?>  ?=(action b)
+  =+  ^-  a/action  b
+  ~&  [%poked-with a]
   ?-  a
   {$state $~}
     ~&  [%enabled enabled]
