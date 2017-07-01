@@ -4,6 +4,7 @@
 ++  move  {bone card}
 ++  card
   $%  {$wait wire @da}
+      {$poke wire [* term] * action}
   ==
 ++  action
   $%  {$state $~}
@@ -14,6 +15,17 @@
 --
 |_  {hid/bowl start/@da last/@da enabled/_|}
 ++  prep  _`.  :: wipe state when app code is changed
+::
+++  poke-urbit
+  |=  to/@p
+  ^-  {(list move) _+>.$}
+  [[[ost.hid %poke /sending [our.hid dap.hid] %noun [%state ~]] ~] +>.$]
+::
+++  coup
+  |=  {wir/wire ack/(unit tang)}
+  ?^  ack  (mean u.ack)
+  ~&  %noun-acknowledged
+  [~ +>.$]
 ::
 ++  poke-noun
   |=  a/action
@@ -62,5 +74,4 @@
   ?:  (gte now.hid (add last ~s20))
     +>.$(last now.hid, start now.hid)
   +>.$(last now.hid)
-::
 --
