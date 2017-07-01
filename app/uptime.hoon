@@ -30,6 +30,7 @@
 ++  poke-noun
   |=  b/*
   ^-  {(list move) _+>.$}
+  ?>  (team our.hid src.hid)      :: don't allow strangers
   ?>  ?=(action b)
   =+  ^-  a/action  b
   ~&  [%poked-with a]
