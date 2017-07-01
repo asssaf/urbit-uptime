@@ -33,7 +33,7 @@
   ?>  (team our.hid src.hid)      :: don't allow strangers
   ?>  ?=(action b)
   =+  ^-  a/action  b
-  ~&  [%poked-with a]
+  ~|  [%poked-with a]
   ?-  a
   {$state $~}
     ~&  [%enabled enabled]
@@ -53,16 +53,16 @@
 ++  reset
   |=  to/@da
   ^-  {(list move) _+>.$}
-  ~&  [%reset (scot %da to)]
+  ~&  [%reset to=(scot %da to)]
   [~ +>.$(start to)]
 ::
 ++  set
   |=  to/@f
   ^-  {(list move) _+>.$}
   ?:  =(to enabled)
-    ~&  [%already enabled]
+    ~&  [%already enabled=enabled]
     [~ +>.$]
-  ~&  [%setting-enabled to]
+  ~&  [%setting enabled=to]
   ?.  to
     [~ +>.$(enabled to)]
   :_  +>.$(enabled to, last now.hid, start now.hid)
@@ -70,9 +70,9 @@
 ::
 ++  wake-timer
   |=  {wir/wire $~}  ^-  (quip move +>)
-  :: ~&  [%woke (scot %dr (sub now.hid last))]
+  :: ~|  [%woke (scot %dr (sub now.hid last))]
   ?.  enabled
-    :: ~&  [%ignoring-disabled ~]
+    :: ~&  %ignoring-disabled
     [~ +>.$]
   :-  [ost.hid %wait /timer (add ~s10 now.hid)]~
   ?:  (gte now.hid (add last ~s20))
