@@ -4,7 +4,7 @@
 ++  move  {bone card}
 ++  card
   $%  {$wait wire @da}
-      {$poke wire [* term] * action}
+      {$poke wire {@p term} {$noun action}}
   ==
 ++  action
   $%  {$state $~}
