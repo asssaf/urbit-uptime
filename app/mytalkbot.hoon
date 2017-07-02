@@ -90,7 +90,6 @@
     ?.  =((find (weld (cite our) " uptime") tmsg) [~ 0])
       ~
     :-  ~
-    ::(send u.aud (weld "you said: " tmsg))
     [ost %poke /sending [our %uptime] %noun [%state ~]]
   ==
 
