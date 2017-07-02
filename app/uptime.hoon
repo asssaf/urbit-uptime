@@ -5,6 +5,7 @@
 ++  card
   $%  {$wait wire @da}
       {$poke wire {@p term} {$noun action}}
+      {$diff mark *}
   ==
 ++  action
   $%  {$state $~}
@@ -39,8 +40,12 @@
     ~&  [%enabled enabled]
     ~&  [%started (scot %da start)]
     ~&  [%now now.hid]
-    ~&  [%delta (scot %dr (sub now.hid start))]
-    [~ +>.$]
+    =+  delta=(sub now.hid start)
+    ~&  [%delta (scot %dr delta)]
+    :_  +>.$
+    %+  turn  (prey /uptime/report hid)
+    |=({o/bone *} `move`[o %diff %noun delta])
+
   {$reset $~}
     (reset now.hid)
   {$reset @}
@@ -78,4 +83,10 @@
   ?:  (gte now.hid (add last ~s20))
     +>.$(last now.hid, start now.hid)
   +>.$(last now.hid)
+::
+++  peer-uptime
+  |=  pax/path
+  ^-  {(list move) _+>.$}
+  ~&  [%subscribed-to pax=pax]
+  [~ +>.$]
 --
