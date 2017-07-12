@@ -1,6 +1,11 @@
 # urbit-uptime
 Uptime monitor for urbit
 
+## How does it work?
+This is not a real uptime daemon (i.e. reading uptime from the kernel). It stores a start timestamp and calculates the time passed since then. The start time can be updated in one of two ways:
+1. Manually, by using the reset command
+2. Using a heartbeat timer, see the enable command for details
+
 ## Operations
 ### Manual Reset
 Reset uptime to 0 (time since now)
@@ -35,3 +40,36 @@ Also the timer is not guaranteed to fire at the requested time so this is not gu
 
 ### Disable
 Disable the uptime timer.
+
+## mytalkbot extension
+A modified talkbot based on the example in [urbit by doing](https://github.com/Fang-/Urbit-By-Doing) is provided (in `app/mytalkboot.hoon`. It can be used to query the current uptime through a talk channel.
+
+### Usage
+#### Enable
+1. Start the bot on the same ship as the uptime app
+```
+|start mytalkbot
+```
+2. Join a channel
+```
+:mytalkbot [%join our ~.sandbox]
+```
+3. Subscribe to uptime reports
+```
+:mytalkbot [%subscribe ~]
+```
+4. Ask for an update through talk:
+```
+> ~ship_name uptime
+~ship_name= :: uptime is ~m10.s2..112d
+```
+#### Disable
+1. Unsubscribe from uptime reports
+```
+:mytalkbot [%unsubscribe ~]
+```
+2. Leave the channel
+```
+:mytalkbot [%leave our ~.sandbox]
+```
+
