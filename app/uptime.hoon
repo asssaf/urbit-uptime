@@ -15,7 +15,7 @@
   ==
 --
 |_  {hid/bowl start/@da last/@da enabled/_|}
-++  prep  _`.  :: wipe state when app code is changed
+::++  prep  _`.  :: wipe state when app code is changed
 ::
 ++  poke-urbit
   |=  to/@p
@@ -27,6 +27,14 @@
   ?^  ack  (mean u.ack)
   ~&  %noun-acknowledged
   [~ +>.$]
+::
+++  poke-uptime-request
+  |=  req/$request
+  ^-  {(list move) _+>.$}
+  ~|  [%poked req=req]
+  :_  +>.$
+  %+  turn  (prey /uptime/response hid)
+  |=({o/bone *} (send-uptime-response o))
 ::
 ++  poke-noun
   |=  b/*
@@ -45,7 +53,6 @@
     :_  +>.$
     %+  turn  (prey /uptime/report hid)
     |=({o/bone *} `move`[o %diff %noun delta])
-
   {$reset $~}
     (reset now.hid)
   {$reset @}
@@ -55,6 +62,7 @@
   {$disable $~}
     (set |)
   ==
+::
 ++  reset
   |=  to/@da
   ^-  {(list move) _+>.$}
@@ -87,6 +95,13 @@
 ++  peer-uptime
   |=  pax/path
   ^-  {(list move) _+>.$}
-  ~&  [%subscribed-to pax=pax]
-  [~ +>.$]
+  ~|  [%subscribed-to pax=pax]
+  :_  +>.$
+  ?.  =(pax /response)
+  ~
+  [(send-uptime-response ost.hid) ~]
+::
+++  send-uptime-response
+  |=  o/bone
+  [o %diff %uptime-response (sub now.hid start)]
 --
