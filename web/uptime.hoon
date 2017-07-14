@@ -6,8 +6,16 @@
   ==
   ;body
     ;div#cont
-      ;div: Uptime:
-      ;div#uptime;
+      ;table
+        ;tr
+          ;th: Uptime:
+          ;td#uptime: <updating...>
+        ==
+        ;tr
+          ;th: Since:
+          ;td#since: <updating...>
+        ==
+      ==
       ;input#go(type "button", value "Refresh");
       ;div#err(class "disabled");
     ==

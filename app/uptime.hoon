@@ -5,7 +5,7 @@
 ++  card
   $%  {$wait wire @da}
       {$poke wire {@p term} {$noun action}}
-      {$diff ?({$noun *} {$uptime-response @dr})}
+      {$diff ?({$noun *} {$uptime-response time})}
   ==
 ++  action
   $%  {$state $~}
@@ -33,8 +33,7 @@
   ^-  {(list move) _+>.$}
   ~|  [%poked req=req]
   :_  +>.$
-  %+  turn  (prey /uptime/response hid)
-  |=({o/bone *} (send-uptime-response o))
+  (send-uptime-response-all start)
 ::
 ++  poke-noun
   |=  b/*
@@ -67,7 +66,8 @@
   |=  to/@da
   ^-  {(list move) _+>.$}
   ~&  [%reset to=(scot %da to)]
-  [~ +>.$(start to)]
+  :_  +>.$(start to)
+  (send-uptime-response-all to)
 ::
 ++  set
   |=  to/@f
@@ -99,9 +99,15 @@
   :_  +>.$
   ?.  =(pax /response)
   ~
-  [(send-uptime-response ost.hid) ~]
+  [(send-uptime-response ost.hid start) ~]
+::
+++  send-uptime-response-all
+  |=  since/time
+  %+  turn  (prey /uptime/response hid)
+  |=({o/bone *} (send-uptime-response o since))
 ::
 ++  send-uptime-response
-  |=  o/bone
-  [o %diff %uptime-response (sub now.hid start)]
+  |=  {o/bone since/time}
+  ?>  ?=(time since)
+  [o %diff %uptime-response since]
 --

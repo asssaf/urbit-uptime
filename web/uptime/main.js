@@ -1,8 +1,9 @@
 $(function() {
-  var uptime, $go, $uptime, $err
+  var since, $go, $uptime, $since, $err
 
   $go     = $('#go')
   $uptime = $('#uptime')
+  $since  = $('#since')
   $err    = $('#err')
 
   $go.on("click",
@@ -24,8 +25,38 @@ $(function() {
   window.urb.appl = "uptime"
   window.urb.bind('/uptime/response',
     function(err,dat) {
-      uptime = dat.data.uptime
-      $uptime.text(uptime)
+      since = dat.data.since
+      $since.text(new Date(since))
+      refreshUptime()
     }
   )
+
+  function refreshUptime() {
+    if (!since) {
+      return
+    }
+    var now = new Date().getTime()
+    var delta = now - since
+    $uptime.text(formatDelta(delta))
+  }
+
+  function formatDelta(delta) {
+    delta = Math.floor(delta/1000)
+    var seconds = delta % 60
+    delta = Math.floor(delta/60)
+    var minutes = delta % 60
+    delta = Math.floor(delta/60)
+    var hours = delta % 60
+    delta = Math.floor(delta/24)
+    var days = delta
+
+    return days + "d " + hours + "h " + minutes + "m " + seconds + "s"
+  }
+
+  function refreshLoop() {
+    refreshUptime()
+    setTimeout(refreshLoop, 1000)
+  }
+
+  refreshLoop()
 })

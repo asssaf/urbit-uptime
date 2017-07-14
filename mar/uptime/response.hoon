@@ -1,9 +1,9 @@
 /?  314
 !:
-|_  uptime/@dr
+|_  since/time
 ++  grow
   |%
   ++  json
-    (joba %uptime (jape (scow %dr uptime)))
+    (joba %since (jode since))
   --
 --
