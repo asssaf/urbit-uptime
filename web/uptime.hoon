@@ -6,7 +6,7 @@
   ==
   ;body
     ;div#cont
-      ;table
+      ;table.table
         ;tr
           ;th: Uptime:
           ;td#uptime: <updating...>
