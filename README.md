@@ -26,7 +26,7 @@ Get the current uptime:
 > :uptime [%state ~]
 >=
 [%enabled %.y]
-[%started ~.~2017.6.30..16.59.07..2588]
+[%since ~.~2017.6.30..16.59.07..2588]
 [%now ~2017.6.30..23.04.10..4640]
 [%delta ~.~h6.m5.s3..20b8]
 ```

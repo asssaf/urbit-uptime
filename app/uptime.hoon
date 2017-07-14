@@ -14,7 +14,7 @@
       {$disable $~}
   ==
 --
-|_  {hid/bowl start/@da last/@da enabled/_|}
+|_  {hid/bowl since/@da last/@da enabled/_|}
 ::++  prep  _`.  :: wipe state when app code is changed
 ::
 ++  poke-urbit
@@ -33,7 +33,7 @@
   ^-  {(list move) _+>.$}
   ~|  [%poked req=req]
   :_  +>.$
-  (send-uptime-response-all start)
+  (send-uptime-response-all since)
 ::
 ++  poke-noun
   |=  b/*
@@ -45,9 +45,9 @@
   ?-  a
   {$state $~}
     ~&  [%enabled enabled]
-    ~&  [%started (scot %da start)]
+    ~&  [%since (scot %da since)]
     ~&  [%now now.hid]
-    =+  delta=(sub now.hid start)
+    =+  delta=(sub now.hid since)
     ~&  [%delta (scot %dr delta)]
     :_  +>.$
     %+  turn  (prey /uptime/report hid)
@@ -66,7 +66,7 @@
   |=  to/@da
   ^-  {(list move) _+>.$}
   ~&  [%reset to=(scot %da to)]
-  :_  +>.$(start to)
+  :_  +>.$(since to)
   (send-uptime-response-all to)
 ::
 ++  set
@@ -78,7 +78,7 @@
   ~&  [%setting enabled=to]
   ?.  to
     [~ +>.$(enabled to)]
-  :_  +>.$(enabled to, last now.hid, start now.hid)
+  :_  +>.$(enabled to, last now.hid, since now.hid)
   [ost.hid %wait /timer (add ~s10 now.hid)]~
 ::
 ++  wake-timer
@@ -89,7 +89,7 @@
     [~ +>.$]
   :-  [ost.hid %wait /timer (add ~s10 now.hid)]~
   ?:  (gte now.hid (add last ~s20))
-    +>.$(last now.hid, start now.hid)
+    +>.$(last now.hid, since now.hid)
   +>.$(last now.hid)
 ::
 ++  peer-uptime
@@ -99,7 +99,7 @@
   :_  +>.$
   ?.  =(pax /response)
   ~
-  [(send-uptime-response ost.hid start) ~]
+  [(send-uptime-response ost.hid since) ~]
 ::
 ++  send-uptime-response-all
   |=  since/time
