@@ -5,7 +5,7 @@
 ++  card
   $%  {$wait wire @da}
       {$poke wire {@p term} {$noun action}}
-      {$diff mark *}
+      {$diff ?({$noun *} {$uptime-response @dr})}
   ==
 ++  action
   $%  {$state $~}

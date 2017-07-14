@@ -1,10 +1,9 @@
 /?  314
 !:
-|_  uptime/*
+|_  uptime/@dr
 ++  grow
   |%
   ++  json
-    ?>  ?=(@dr uptime)
     (joba %uptime (jape (scow %dr uptime)))
   --
 --
