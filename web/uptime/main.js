@@ -46,7 +46,7 @@ $(function() {
     delta = Math.floor(delta/60)
     var minutes = delta % 60
     delta = Math.floor(delta/60)
-    var hours = delta % 60
+    var hours = delta % 24
     delta = Math.floor(delta/24)
     var days = delta
 
